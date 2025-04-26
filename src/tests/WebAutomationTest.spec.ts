@@ -1,6 +1,13 @@
 import { test } from '../fixtures';
 import { SEARCH_QUERY, EXPECTED_YEAR, SCREENSHOT_PATH } from '../constants';
 
+async function handlePotentialCaptcha(page) {
+  const isCaptcha = await page.locator('text=detected unusual traffic').isVisible();
+  if (isCaptcha) {
+    await page.pause(); // Pause for manual CAPTCHA handling
+  }
+}
+
 test.afterEach(async ({ page }) => {
   await page.close();
 });
@@ -9,7 +16,7 @@ test('Search for automation and verify Wikipedia details', async ({ googleHome, 
   await googleHome.search(SEARCH_QUERY);
 
   // CAPTCHA manual handling
-  page.pause();
+  await handlePotentialCaptcha(page);
 
   await googleResults.clickWikipediaLink();
   await wikipediaPage.verifyFirstAutomationYear(EXPECTED_YEAR);
