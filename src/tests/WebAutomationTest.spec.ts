@@ -1,7 +1,8 @@
 import { test } from '../fixtures';
+import { Page } from '@playwright/test';
 import { SEARCH_QUERY, EXPECTED_YEAR, SCREENSHOT_PATH } from '../constants';
 
-async function handlePotentialCaptcha(page) {
+async function handlePotentialCaptcha(page: Page) {
   const isCaptcha = await page.locator('text=detected unusual traffic').isVisible();
   if (isCaptcha) {
     await page.pause(); // Pause for manual CAPTCHA handling
