@@ -17,13 +17,13 @@ test('PetStore API test', async ({ request }) => {
     const api = new PetStoreAPI(request);
   
     const createUserResponse = await api.createUser(newUser);
-    //console.log('Create User Response:\n', await createUserResponse.json());
+    console.log('Create User Response:\n', await createUserResponse.json());
     expect(createUserResponse.ok()).toBeTruthy();
   
     const getUserResponse = await api.getUser(newUser.username);
     expect(getUserResponse.ok()).toBeTruthy();
     const userData = await getUserResponse.json();
-    //console.log('User Data:\n', userData);
+    console.log('User Data:\n', userData);
   
     const soldPetsResponse = await api.findSoldPets();
     expect(soldPetsResponse.ok()).toBeTruthy();
@@ -33,6 +33,5 @@ test('PetStore API test', async ({ request }) => {
   
     const petNameCounter = new PetNameCounter(petsList);
     const nameCounts = petNameCounter.countNames();
-  
-    //console.log('Name Counts:\n', nameCounts);
+    console.log('Name Counts:\n', nameCounts);
   });
